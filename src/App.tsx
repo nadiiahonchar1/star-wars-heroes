@@ -1,35 +1,38 @@
 import axios from 'axios';
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
 import './App.css';
-import HeroGraph from './components/HeroGrapt/HeroGraph';
-import HeroesList from './components/HeroList/HeroesList';
 
 const App = () => {
-  const [selectedHero, setSelectedHero] = useState<HeroType | null>(null);
-  const [films, setFilms] = useState<Films[]>([]);
-  const [starships, setStarships] = useState<Starships[]>([]);
+  const [heroes, setHeroes] = useState<HeroType[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleHeroClick = async (hero: HeroType) => {
-    setSelectedHero(hero);
+  useEffect(() => {
+    const fetchHeroes = async () => {
+      try {
+        const response = await axios.get('https://sw-api.starnavi.io/people/');
+        setHeroes(response.data.results);
+      } catch (err) {
+        setError('Не вдалося отримати дані про героїв');
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    const filmsResponse = await axios.all(
-      hero.films.map((film) => axios.get(film))
-    );
-    const starshipsResponse = await axios.all(
-      hero.starships.map((starship) => axios.get(starship))
-    );
+    fetchHeroes();
+  }, []);
 
-    setFilms(filmsResponse.map((res) => res.data));
-    setStarships(starshipsResponse.map((res) => res.data));
-  };
+  if (loading) return <div>Завантаження...</div>;
+  if (error) return <div>{error}</div>;
 
   return (
     <div>
-      <HeroesList onHeroClick={handleHeroClick} />
-      {selectedHero && (
-        <HeroGraph hero={selectedHero} films={films} starships={starships} />
-      )}
+      <h1>Список героїв Star Wars</h1>
+      <ul>
+        {heroes.map((hero) => (
+          <li key={hero.id}>{hero.name}</li>
+        ))}
+      </ul>
     </div>
   );
 };
