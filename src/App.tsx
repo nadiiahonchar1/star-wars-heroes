@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { fetchHeroes } from './api/api';
 import HeroItem from './components/HeroItem/HeroItem';
+import HeroDetail from './components/HeroDetail/HeroDetail';
 import styles from './App.module.css';
 
 const App = () => {
@@ -33,28 +35,33 @@ const App = () => {
   if (error) return <div>{error}</div>;
 
   return (
-    <div className={styles.container}>
-      <h1>List of Star Wars heroes</h1>
-      <ul className={styles.list}>
-        {heroes.map((hero) => (
-          <HeroItem key={hero.id} id={hero.id} name={hero.name} />
-        ))}
-      </ul>
-      <div>
-        <button
-          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-          disabled={!prevPage}
-        >
-          Previous
-        </button>
-        <button
-          onClick={() => setPage((prev) => prev + 1)}
-          disabled={!nextPage}
-        >
-          Next
-        </button>
+    <Router>
+      <div className={styles.container}>
+        <h1>List of Star Wars heroes</h1>
+        <ul className={styles.list}>
+          {heroes.map((hero) => (
+            <HeroItem key={hero.id} id={hero.id} name={hero.name} />
+          ))}
+        </ul>
+        <div>
+          <button
+            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+            disabled={!prevPage}
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => setPage((prev) => prev + 1)}
+            disabled={!nextPage}
+          >
+            Next
+          </button>
+        </div>
+        <Routes>
+          <Route path="/hero/:id" element={<HeroDetail />} />{' '}
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 };
 
