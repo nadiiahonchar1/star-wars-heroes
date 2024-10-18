@@ -23,8 +23,7 @@ type HeroType = {
   url: string;
 };
 
-type HeroGraphProps = {
-  hero: HeroType; 
-  films: Films; 
-  starships: Starships; 
+type HeroItemProps = {
+  id: number;
+  name: string;
 };

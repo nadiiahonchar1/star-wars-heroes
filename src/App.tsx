@@ -1,7 +1,7 @@
-// import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { fetchHeroes } from './api/api';
-import './App.css';
+import HeroItem from './components/HeroItem/HeroItem';
+import styles from './App.module.css';
 
 const App = () => {
   const [heroes, setHeroes] = useState<HeroType[]>([]);
@@ -29,15 +29,15 @@ const App = () => {
     getHeroes();
   }, [page]);
 
-  if (loading) return <div>Завантаження...</div>;
+  if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
   return (
-    <div>
-      <h1>Список героїв Star Wars</h1>
-      <ul>
+    <div className={styles.container}>
+      <h1>List of Star Wars heroes</h1>
+      <ul className={styles.list}>
         {heroes.map((hero) => (
-          <li key={hero.id}>{hero.name}</li>
+          <HeroItem key={hero.id} id={hero.id} name={hero.name} />
         ))}
       </ul>
       <div>

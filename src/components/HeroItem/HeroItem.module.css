@@ -1,0 +1,35 @@
+.characterCard {
+  position: relative;
+  max-width: 500px;
+  margin: 0 auto;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.characterImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.characterName {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  color: white;
+  text-align: center;
+  font-size: 1.5em;
+}
+
+@media (max-width: 600px) {
+  .characterCard {
+    max-width: 200px;
+  }
+
+  .characterName {
+    font-size: 1em;
+  }
+}
