@@ -40,25 +40,30 @@ const App = () => {
 
   return (
     <Router>
-      <div className={styles.container}>
-        <h1>List of Star Wars heroes</h1>
-        <ul className={styles.list}>
-          {heroes.map((hero) => (
-            <HeroItem key={hero.id} id={hero.id} name={hero.name} />
-          ))}
-        </ul>
-        <div>
-          <button onClick={() => changePage(-1)} disabled={!prevPage}>
-            Previous
-          </button>
-          <button onClick={() => changePage(1)} disabled={!nextPage}>
-            Next
-          </button>
-        </div>
-        <Routes>
-          <Route path="/hero/:id" element={<HeroDetail />} />{' '}
-        </Routes>
-      </div>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className={styles.container}>
+              <h1>List of Star Wars heroes</h1>
+              <ul className={styles.list}>
+                {heroes.map((hero) => (
+                  <HeroItem key={hero.id} id={hero.id} name={hero.name} />
+                ))}
+              </ul>
+              <div>
+                <button onClick={() => changePage(-1)} disabled={!prevPage}>
+                  Previous
+                </button>
+                <button onClick={() => changePage(1)} disabled={!nextPage}>
+                  Next
+                </button>
+              </div>
+            </div>
+          }
+        />
+        <Route path="/hero/:id" element={<HeroDetail />} />
+      </Routes>
     </Router>
   );
 };
