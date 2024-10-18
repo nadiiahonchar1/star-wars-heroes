@@ -31,6 +31,10 @@ const App = () => {
     getHeroes();
   }, [page]);
 
+  const changePage = (direction: number) => {
+    setPage((prev) => Math.max(prev + direction, 1));
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -44,16 +48,10 @@ const App = () => {
           ))}
         </ul>
         <div>
-          <button
-            onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
-            disabled={!prevPage}
-          >
+          <button onClick={() => changePage(-1)} disabled={!prevPage}>
             Previous
           </button>
-          <button
-            onClick={() => setPage((prev) => prev + 1)}
-            disabled={!nextPage}
-          >
+          <button onClick={() => changePage(1)} disabled={!nextPage}>
             Next
           </button>
         </div>
