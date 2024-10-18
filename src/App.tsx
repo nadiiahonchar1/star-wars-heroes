@@ -1,26 +1,33 @@
-import axios from 'axios';
+// import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { fetchHeroes } from './api/api';
 import './App.css';
 
 const App = () => {
   const [heroes, setHeroes] = useState<HeroType[]>([]);
+  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [nextPage, setNextPage] = useState<string | null>(null);
+  const [prevPage, setPrevPage] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchHeroes = async () => {
+    const getHeroes = async () => {
+      setLoading(true);
       try {
-        const response = await axios.get('https://sw-api.starnavi.io/people/');
-        setHeroes(response.data.results);
+        const data = await fetchHeroes(page);
+        setHeroes(data.results);
+        setNextPage(data.next);
+        setPrevPage(data.previous);
       } catch (err) {
-        setError('Не вдалося отримати дані про героїв');
+        setError('Failed to get hero data');
       } finally {
         setLoading(false);
       }
     };
 
-    fetchHeroes();
-  }, []);
+    getHeroes();
+  }, [page]);
 
   if (loading) return <div>Завантаження...</div>;
   if (error) return <div>{error}</div>;
@@ -33,6 +40,20 @@ const App = () => {
           <li key={hero.id}>{hero.name}</li>
         ))}
       </ul>
+      <div>
+        <button
+          onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
+          disabled={!prevPage}
+        >
+          Previous
+        </button>
+        <button
+          onClick={() => setPage((prev) => prev + 1)}
+          disabled={!nextPage}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
