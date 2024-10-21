@@ -18,7 +18,7 @@ const App = () => {
       setLoading(true);
       try {
         const data = await fetchHeroes(page);
-        setHeroes(data.results);
+        setHeroes(Array.isArray(data.results) ? data.results : []);
         setNextPage(data.next);
         setPrevPage(data.previous);
       } catch (err) {
