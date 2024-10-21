@@ -3,6 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import HeroItem from './HeroItem';
 
 describe('HeroItem Component', () => {
+  // Test to verify that the hero name and image are rendered correctly
   test('renders hero name and image', () => {
     render(
       <BrowserRouter>

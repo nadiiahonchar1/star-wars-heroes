@@ -14,6 +14,7 @@ const HeroDetail: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    // Function to fetch the hero details
     const getHero = async () => {
       setLoading(true);
       try {
@@ -30,12 +31,17 @@ const HeroDetail: React.FC = () => {
       }
     };
 
+    // Call the function on component mount or when `id` changes
     getHero();
   }, [id]);
 
+  // Show loading indicator while data is being fetched
   if (loading) return <div>Loading...</div>;
+
+  // Display error message if fetching fails
   if (error) return <div>{error}</div>;
 
+  // Create nodes for the hero, films, and starships
   const nodes: Node[] = [
     {
       id: `hero-${hero!.id}`,
@@ -43,12 +49,14 @@ const HeroDetail: React.FC = () => {
       data: { label: hero!.name },
       position: { x: 250, y: 0 },
     },
+    // Create nodes for each film the hero appears in
     ...films.map((film, index) => ({
       id: `film-${index}`,
       data: { label: film.title },
       position: { x: 150 * index, y: 150 },
       className: styles.filmNode,
     })),
+    // Create nodes for each starship the hero owns or flies
     ...hero!.starships.map((heroStarship, index) => {
       const starshipData = starships.find(({ id }) => id === heroStarship);
 
@@ -61,6 +69,7 @@ const HeroDetail: React.FC = () => {
     }),
   ];
 
+  // Create edges between the hero and films, and between films and starships
   const edges: Edge[] = [
     ...hero!.films.map((_, index) => ({
       id: `hero-film-${index}`,
@@ -68,6 +77,7 @@ const HeroDetail: React.FC = () => {
       target: `film-${index}`,
       animated: true,
     })),
+    // Create edges between films and starships
     ...hero!.starships.flatMap((heroStarship, index) => {
       const relatedFilms = films.filter((film) =>
         film.starships.includes(heroStarship)

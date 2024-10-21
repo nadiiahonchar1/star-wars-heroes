@@ -2,8 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './HeroItem.module.css';
 
+// Define the component using React.FC with HeroItemProps type
 const HeroItem: React.FC<HeroItemProps> = ({ id, name }) => {
   return (
+    // Render a list item representing a character card
     <li className={styles.characterCard}>
       <Link to={`/hero/${id}`} ria-label={`View details about ${name}`}>
         <img

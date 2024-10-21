@@ -13,6 +13,7 @@ const App = () => {
   const [nextPage, setNextPage] = useState<string | null>(null);
   const [prevPage, setPrevPage] = useState<string | null>(null);
 
+  // useEffect to fetch heroes whenever the page number changes
   useEffect(() => {
     const getHeroes = async () => {
       setLoading(true);
@@ -31,11 +32,15 @@ const App = () => {
     getHeroes();
   }, [page]);
 
+  // Function to change the page (increment or decrement based on direction)
   const changePage = (direction: number) => {
     setPage((prev) => Math.max(prev + direction, 1));
   };
 
+  // Display loading state
   if (loading) return <div>Loading...</div>;
+
+  // Display error if there's an issue fetching data
   if (error) return <div>{error}</div>;
 
   return (
