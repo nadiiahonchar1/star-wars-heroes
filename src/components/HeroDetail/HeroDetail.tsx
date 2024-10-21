@@ -8,8 +8,8 @@ import styles from './HeroDetail.module.css';
 const HeroDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [hero, setHero] = useState<HeroType | null>(null);
-  const [films, setFilms] = useState<any[]>([]);
-  const [starships, setStarships] = useState<any[]>([]);
+  const [films, setFilms] = useState<FilmType[]>([]);
+  const [starships, setStarships] = useState<StarshipType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -47,6 +47,7 @@ const HeroDetail: React.FC = () => {
       id: `film-${index}`,
       data: { label: film.title },
       position: { x: 150 * index, y: 150 },
+      className: styles.filmNode,
     })),
     ...hero!.starships.map((heroStarship, index) => {
       const starshipData = starships.find((s) => s.id === heroStarship);
@@ -55,6 +56,7 @@ const HeroDetail: React.FC = () => {
         id: `starship-${index}`,
         data: { label: starshipData.name || 'Unknown Starship' },
         position: { x: 150 * index, y: 300 },
+        className: styles.starshipNode,
       };
     }),
   ];

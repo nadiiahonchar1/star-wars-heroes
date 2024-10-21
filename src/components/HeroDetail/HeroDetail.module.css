@@ -5,6 +5,16 @@
   text-align: center;
 }
 
+.filmNode {
+  border: 2px solid blue;
+  padding: 5px;
+}
+
+.starshipNode {
+  border: 2px solid green;
+  padding: 5px;
+}
+
 @media (max-width: 600px) {
   .container {
     min-width: 350px;

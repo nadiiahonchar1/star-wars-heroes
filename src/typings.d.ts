@@ -2,6 +2,8 @@ type Films = string[];
 type Species = string[];
 type Vehicles = string[];
 type Starships = string[];
+type Characters = string[];
+type Planets = string[];
 
 type HeroType = {
   id: number;
@@ -18,6 +20,46 @@ type HeroType = {
   species: Species;
   vehicles: Vehicles;
   starships: Starships;
+  created: string;
+  edited: string;
+  url: string;
+};
+
+type FilmType = {
+  id: number;
+  title: string;
+  episode_id: string;
+  opening_crawl: string;
+  director: string;
+  producer: string;
+  release_date: string;
+  characters: Characters;
+  planets: Planets;
+  starships: Starships;
+  vehicles: Vehicles;
+  species: Species;
+  created: string;
+  edited: string;
+  url: string;
+};
+
+type StarshipType = {
+  id: number;
+  name: string;
+  model: string;
+  manufacturer: string;
+  cost_in_credits: string;
+  length: string;
+  max_atmosphering_speed: string;
+  crew: string;
+  passengers: string;
+  cargo_capacity: string;
+  consumables: string;
+  hyperdrive_rating: string;
+  MGLT: string;
+  starship_class: string;
+  pilots: Characters;
+  films: Films;
   created: string;
   edited: string;
   url: string;
