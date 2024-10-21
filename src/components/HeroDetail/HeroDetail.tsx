@@ -50,11 +50,11 @@ const HeroDetail: React.FC = () => {
       className: styles.filmNode,
     })),
     ...hero!.starships.map((heroStarship, index) => {
-      const starshipData = starships.find((s) => s.id === heroStarship);
+      const starshipData = starships.find(({ id }) => id === heroStarship);
 
       return {
         id: `starship-${index}`,
-        data: { label: starshipData.name || 'Unknown Starship' },
+        data: { label: starshipData ? starshipData.name : 'Unknown Starship' },
         position: { x: 150 * index, y: 300 },
         className: styles.starshipNode,
       };

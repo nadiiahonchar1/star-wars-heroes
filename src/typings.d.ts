@@ -26,7 +26,7 @@ type HeroType = {
 };
 
 type FilmType = {
-  id: number;
+  id: string;
   title: string;
   episode_id: string;
   opening_crawl: string;
@@ -44,7 +44,7 @@ type FilmType = {
 };
 
 type StarshipType = {
-  id: number;
+  id: string;
   name: string;
   model: string;
   manufacturer: string;
