@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ReactFlow, { Node, Edge, Position, Controls } from 'reactflow';
+import ReactFlow, { Node, Edge, Controls } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { getHeroByID, getFilm, getStarshipByID } from '../../api/api';
+import { getHeroByID, getFilm, getStarship } from '../../api/api';
 import styles from './HeroDetail.module.css';
 
 const HeroDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [hero, setHero] = useState<HeroType | null>(null);
   const [films, setFilms] = useState<any[]>([]);
+  const [starships, setStarships] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -18,10 +19,10 @@ const HeroDetail: React.FC = () => {
       try {
         const data = await getHeroByID(Number(id));
         setHero(data);
-        console.log('data', data);
         const filmData = await getFilm(data.films);
-        console.log('filmData.results', filmData.results);
         setFilms(filmData.results);
+        const starshipData = await getStarship(data.starships);
+        setStarships(starshipData.results);
       } catch (err) {
         setError('Failed to get hero details');
       } finally {
@@ -47,26 +48,36 @@ const HeroDetail: React.FC = () => {
       data: { label: film.title },
       position: { x: 150 * index, y: 150 },
     })),
-    ...hero!.starships.map((starship, index) => ({
-      id: `starship-${index}`,
-      data: { label: starship },
-      position: { x: 150 * index, y: 300 },
-    })),
+    ...hero!.starships.map((heroStarship, index) => {
+      const starshipData = starships.find((s) => s.id === heroStarship);
+
+      return {
+        id: `starship-${index}`,
+        data: { label: starshipData.name || 'Unknown Starship' },
+        position: { x: 150 * index, y: 300 },
+      };
+    }),
   ];
 
   const edges: Edge[] = [
-    ...hero!.films.map((film, index) => ({
+    ...hero!.films.map((_, index) => ({
       id: `hero-film-${index}`,
       source: `hero-${hero!.id}`,
       target: `film-${index}`,
       animated: true,
     })),
-    ...hero!.starships.map((starship, index) => ({
-      id: `film-starship-${index}`,
-      source: `film-${Math.floor(index / 2)}`,
-      target: `starship-${index}`,
-      animated: true,
-    })),
+    ...hero!.starships.flatMap((heroStarship, index) => {
+      const relatedFilms = films.filter((film) =>
+        film.starships.includes(heroStarship)
+      );
+
+      return relatedFilms.map((film, filmIndex) => ({
+        id: `film-starship-${index}-${filmIndex}`,
+        source: `film-${films.indexOf(film)}`,
+        target: `starship-${index}`,
+        animated: true,
+      }));
+    }),
   ];
 
   return (

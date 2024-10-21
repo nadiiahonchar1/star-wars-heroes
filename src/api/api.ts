@@ -14,18 +14,6 @@ export const getHeroByID = async (id: number) => {
   return response.data; 
 };
 
-// export const getFilmByID = async (id: number) => {
-//   const response = await axios.get(`https://sw-api.starnavi.io/films/${id}/`);
-//   return response.data.title;
-// };
-
-export const getStarshipByID = async (id: number) => {
-  const response = await axios.get(
-    `https://sw-api.starnavi.io/starships/${id}/`
-  );
-  return response.data.name;
-};
-
 export const getFilm = async (ids: Films) => {
     const idList = ids.join(',');
   const response = await axios.get(
@@ -34,15 +22,10 @@ export const getFilm = async (ids: Films) => {
   return response.data;
 };
 
-// export const getStarship = async (filmId: string, heroId: number) => {
-//   const response = await axios.get(
-//     `https://sw-api.starnavi.io/starships/?films__in=${filmId}&pilots__in=${heroId}`
-//   );
-//   return response.data;
-// };
-// export const getStarship = async (filmId: string) => {
-//   const response = await axios.get(
-//     `https://sw-api.starnavi.io/starships/?films__in=${filmId}`
-//   );
-//   return response.data;
+export const getStarship = async (ids: Starships) => {
+  const idList = ids.join(',');
+  const response = await axios.get(
+    `https://sw-api.starnavi.io/starships/?id__in=${idList}`
+  );
+  return response.data;
 };
