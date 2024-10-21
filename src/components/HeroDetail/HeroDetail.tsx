@@ -52,7 +52,15 @@ const HeroDetail: React.FC = () => {
     // Create nodes for each film the hero appears in
     ...films.map((film, index) => ({
       id: `film-${index}`,
-      data: { label: film.title },
+      data: {
+        label: (
+          <>
+            <span>Movie title:</span>
+            <br />
+            {film.title}
+          </>
+        ),
+      },
       position: { x: 150 * index, y: 150 },
       className: styles.filmNode,
     })),
@@ -62,7 +70,15 @@ const HeroDetail: React.FC = () => {
 
       return {
         id: `starship-${index}`,
-        data: { label: starshipData ? starshipData.name : 'Unknown Starship' },
+        data: {
+          label: (
+            <>
+              <span>The name of the starship:</span>
+              <br />
+              {starshipData ? starshipData.name : 'Unknown Starship'}
+            </>
+          ),
+        },
         position: { x: 150 * index, y: 300 },
         className: styles.starshipNode,
       };
@@ -94,7 +110,6 @@ const HeroDetail: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div>Hello World</div>
       <div style={{ height: '500px', width: '100%' }}>
         <ReactFlow
           nodes={nodes}
@@ -102,6 +117,7 @@ const HeroDetail: React.FC = () => {
           fitView
           nodesConnectable={false}
           edgesFocusable={false}
+          style={{ width: '100%', height: '100%' }}
         >
           <Controls />
         </ReactFlow>
