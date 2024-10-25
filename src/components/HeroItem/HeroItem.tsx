@@ -12,6 +12,7 @@ const HeroItem: React.FC<HeroItemProps> = ({ id, name }) => {
           src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
           alt={name}
           className={styles.characterImage}
+          loading="lazy"
         />
         <div className={styles.characterName}>{name}</div>
       </Link>
