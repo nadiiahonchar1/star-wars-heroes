@@ -22,6 +22,11 @@ const App = () => {
 
   // useEffect to fetch heroes whenever the page number changes
   useEffect(() => {
+    if (!searchParams.has('page')) {
+      setSearchParams({ page: '1' });
+      // return;
+    }
+
     const getHeroes = async () => {
       setLoading(true);
       try {
