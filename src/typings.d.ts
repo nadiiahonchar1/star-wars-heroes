@@ -10,10 +10,10 @@ type HeroType = {
   name: string;
   height: string;
   mass: string;
-  hair_color: string;
-  skin_color: string;
-  eye_color: string;
-  birth_year: string;
+  hairColor: string;
+  skinColor: string;
+  eyeColor: string;
+  birthYear: string;
   gender: string;
   homeworld: string;
   films: Films;
@@ -28,11 +28,11 @@ type HeroType = {
 type FilmType = {
   id: string;
   title: string;
-  episode_id: string;
-  opening_crawl: string;
+  episodeId: string;
+  openingCrawl: string;
   director: string;
   producer: string;
-  release_date: string;
+  releaseDate: string;
   characters: Characters;
   planets: Planets;
   starships: Starships;
@@ -48,16 +48,16 @@ type StarshipType = {
   name: string;
   model: string;
   manufacturer: string;
-  cost_in_credits: string;
+  costInCredits: string;
   length: string;
-  max_atmosphering_speed: string;
+  maxAtmospheringSpeed: string;
   crew: string;
   passengers: string;
-  cargo_capacity: string;
+  cargoCapacity: string;
   consumables: string;
-  hyperdrive_rating: string;
+  hyperdriveRating: string;
   MGLT: string;
-  starship_class: string;
+  starshipClass: string;
   pilots: Characters;
   films: Films;
   created: string;
@@ -75,4 +75,18 @@ type HeroesResponseType = {
   next: string | null;
   previous: string | null;
   results: HeroType[];
+};
+
+type FilmsResponseType = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: FilmType[];
+};
+
+type StarshipsResponseType = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: StarshipType[];
 };
