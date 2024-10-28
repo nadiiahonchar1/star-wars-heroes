@@ -21,9 +21,11 @@ const HeroDetail: React.FC = () => {
       try {
         const data = await getHeroByID(Number(id));
         setHero(data);
-        const filmData = await getFilm(data.films);
+        const filmData: FilmsResponseType = await getFilm(data.films);
         setFilms(filmData.results);
-        const starshipData = await getStarship(data.starships);
+        const starshipData: StarshipsResponseType = await getStarship(
+          data.starships
+        );
         setStarships(starshipData.results);
       } catch (err) {
         setError('Failed to get hero details');
