@@ -3,9 +3,23 @@
   line-height: 1.5;
   font-weight: 400;
 
+  --color-background-film-node: #f0f0f0;
+  --color-border-film-node: #3498db;
+  --color-background-starship-node: #e0f7fa;
+  --color-border-starship-node: #ff5722;
+  --color-background-character-name: rgba(0, 0, 0, 0.5);
+  --color-shadow: rgba(0, 0, 0, 0.3);
+  --color-text: #ffffff;
+
+  --dark-them-color: rgba(255, 255, 255, 0.87);
+  --dark-them-background: #242424;
+
+  --light-them-color: #213547;
+  --light-them-background: #ffffff;
+
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: var(--dark-them-color);
+  background-color: var(--dark-them-background);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -69,8 +83,8 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--light-them-color);
+    background-color: var(--light-them-background);
   }
   a:hover {
     color: #747bff;

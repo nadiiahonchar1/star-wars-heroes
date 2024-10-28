@@ -19,15 +19,15 @@
   left: 0;
   right: 0;
   padding: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
+  background: var(--color-background-character-name);
+  color: var(--color-text);
   text-align: center;
   font-size: 1.5em;
 }
 
 .characterCard:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 12px var(--color-shadow);
 }
 
 @media (max-width: 600px) {
