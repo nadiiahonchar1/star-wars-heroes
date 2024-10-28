@@ -24,7 +24,6 @@ const App = () => {
   useEffect(() => {
     if (!searchParams.has('page')) {
       setSearchParams({ page: '1' });
-      // return;
     }
 
     const getHeroes = async () => {

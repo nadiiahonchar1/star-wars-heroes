@@ -69,3 +69,10 @@ type HeroItemProps = {
   id: number;
   name: string;
 };
+
+type HeroesResponseType = {
+  count: number;
+  next: string | null;
+  previous: string | null;
+  results: HeroType[];
+};
